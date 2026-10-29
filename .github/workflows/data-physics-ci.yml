@@ -1,0 +1,37 @@
+name: Data Physics & L0-ISM Convergence Simulation CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  simulate-data-physics-convergence:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install z3-solver scipy numpy
+
+    - name: Compile C99 Data Physics State Governor
+      run: |
+        gcc -std=c99 -Wall -Wextra -Werror -I scripts -O3 scripts/data_physics_l0_test.c -o scripts/data_physics_test
+
+    - name: Execute C99 Hardware Interdiction Driver
+      run: |
+        ./scripts/data_physics_test
+
+    - name: Run SMT Z3 & Continuous Statistical Convergence Simulation
+      run: |
+        python scripts/test_z3_data_physics_audit.py

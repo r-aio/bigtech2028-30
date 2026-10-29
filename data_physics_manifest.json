@@ -1,0 +1,22 @@
+{
+  "manifest_version": "1.0.0",
+  "project_title": "Data Physics: A Formal Academic Dissertation on the Convergence of Classical Economic Statistics and the Invariant State Matrix L0-ISM",
+  "author": "Rajmund Olszewski",
+  "date": "2026-10-29",
+  "repository_structure": {
+    "workflow": ".github/workflows/data-physics-ci.yml",
+    "c99_headers": [
+      "scripts/data_physics_l0_governor.h"
+    ],
+    "test_drivers": [
+      "scripts/data_physics_l0_test.c"
+    ],
+    "smt_verifiers": [
+      "scripts/test_z3_data_physics_audit.py"
+    ]
+  },
+  "publication_targets": [
+    "Zenodo",
+    "arXiv"
+  ]
+}
